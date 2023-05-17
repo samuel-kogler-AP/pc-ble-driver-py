@@ -46,7 +46,7 @@ jobs:
     - name: toxify
       working-directory: pc-ble-driver
       run: |
-         python3.10 -m pip install scikit-build tox
+         python -m pip install scikit-build tox
          tox -e ${{ matrix.toxpy }}
         
     - name: Compile pc-ble-driver
