@@ -43,6 +43,6 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: pc_ble_driver_py-linux
+        name: pc_ble_driver_py-linux-${{ matrix.os }}
         path: "pc-ble-driver-py/dist/*.whl"
         if-no-files-found: error
