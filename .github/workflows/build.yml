@@ -26,7 +26,7 @@ jobs:
         path: pc-ble-driver
     
     - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y cmake build-essential python3-dev libspdlog-dev libasio-dev libudev-dev python3-pip && pip3 install scikit-build
+      run: sudo apt-get update && sudo apt-get install -y cmake build-essential libspdlog-dev libasio-dev libudev-dev
 
     - name: Setup python
       uses: actions/setup-python@v4
@@ -34,7 +34,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     
     - name: toxify
-      run: tox -e py310
+      run: |
+         python3.10 -m pip install scikit-build tox
+         tox -e py310
         
     - name: Compile pc-ble-driver
       working-directory: pc-ble-driver
