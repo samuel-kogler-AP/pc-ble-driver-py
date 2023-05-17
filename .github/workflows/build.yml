@@ -8,7 +8,19 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-20.04]
+        os: [ubuntu-20.04, ubuntu-22.04]
+        python-version: [ '3.7', '3.8', '3.9', '3.10', '3.11' ]
+        include:
+          - python-version: '3.7'
+            toxpy: py37
+          - python-version: '3.8'
+            toxpy: py38
+          - python-version: '3.9'
+            toxpy: py39
+          - python-version: '3.10'
+            toxpy: py310
+          - python-version: '3.11'
+            toxpy: py311
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -25,8 +37,19 @@ jobs:
         path: pc-ble-driver
     
     - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y cmake build-essential python3-dev libspdlog-dev libasio-dev libudev-dev python3-pip && pip3 install scikit-build
+      run: sudo apt-get update && sudo apt-get install -y cmake build-essential libspdlog-dev libasio-dev libudev-dev
 
+    - name: Setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: toxify
+      working-directory: pc-ble-driver
+      run: |
+         python -m pip install scikit-build tox
+         tox -e ${{ matrix.toxpy }}
+        
     - name: Compile pc-ble-driver
       working-directory: pc-ble-driver
       run: |
@@ -43,6 +66,6 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: pc_ble_driver_py-linux
+        name: pc_ble_driver_py-linux-${{ matrix.os }}-${{ matrix.toxpy}}
         path: "pc-ble-driver-py/dist/*.whl"
         if-no-files-found: error
