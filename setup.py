@@ -75,12 +75,13 @@ def find_version(*file_paths):
 packages = find_packages(exclude=["tests*"])
 
 setup(
-    name="pc_ble_driver_py",
+    name="pc_ble_driver_py_com",
     version=find_version("pc_ble_driver_py", "__init__.py"),
     description="Python bindings for the Nordic pc-ble-driver SoftDevice serialization library",
     long_description="A Python interface and library for pc-ble-driver. This allows Python applications to interface "
     "with a Nordic Semiconductor IC (both nRF51 and nRF52 series) over a serial port to obtain "
     "access to the full serialized SoftDevice API.",
+    long_description_content_type="text/plain",
     url="https://github.com/NordicSemiconductor/pc-ble-driver-py",
     license="Modified BSD License",
     author="Nordic Semiconductor ASA",
@@ -96,14 +97,14 @@ setup(
         "License :: Other/Proprietary License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
     ],
     keywords="nordic nrf51 nrf52 ble bluetooth softdevice serialization bindings pc-ble-driver pc-ble-driver-py "
     "pc_ble_driver pc_ble_driver_py",
-    python_requires=">=3.7, <3.11",
+    python_requires=">3.7, <=3.11",
     install_requires=requirements,
     packages=packages,
     package_data={

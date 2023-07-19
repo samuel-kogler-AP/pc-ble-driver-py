@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    tags:
+      - v*
 env:
   NRF_BLE_DRIVER_VERSION: 4.1.100
 jobs:
@@ -93,3 +95,38 @@ jobs:
         name: pc_ble_driver_py-${{ matrix.os }}-${{ matrix.toxpy}}
         path: "pc-ble-driver-py/dist/*.whl"
         if-no-files-found: error
+  pypi-publish:
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    name: upload release to PyPI
+    runs-on: ubuntu-latest
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write
+      contents: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: dist
+      - name: flatten folder structure
+        run: |
+          find dist -name '*.whl' -exec mv {} dist \;
+          find dist -type d -empty -delete
+          
+          # linux wheels at the moment are not pypi/manylinux compatible
+          # drop unsupported wheels.
+          rm *-linux*.whl
+
+          # list files
+          ls -R dist
+      
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
+
+      - name: upload release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/*
