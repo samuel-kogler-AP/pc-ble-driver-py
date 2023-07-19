@@ -109,17 +109,19 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: dist
+
       - name: flatten folder structure
+        working-directory: dist
         run: |
-          find dist -name '*.whl' -exec mv {} dist \;
-          find dist -type d -empty -delete
+          find . -name '*.whl' -exec mv {} . \;
+          find . -type d -empty -delete
           
           # linux wheels at the moment are not pypi/manylinux compatible
           # drop unsupported wheels.
           rm *-linux*.whl
 
           # list files
-          ls -R dist
+          ls -R
       
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
