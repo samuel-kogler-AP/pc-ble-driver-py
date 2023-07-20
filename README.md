@@ -1,17 +1,21 @@
 # Python bindings for the nRF5 Bluetooth Low Energy GAP/GATT driver
 
-[![Latest version](https://img.shields.io/pypi/v/pc-ble-driver-py.svg)](https://pypi.python.org/pypi/pc-ble-driver-py)
+![GitHub release (with filter)](https://img.shields.io/github/v/release/embedded-community/pc-ble-driver-py)
 [![License](https://img.shields.io/pypi/l/pc-ble-driver-py.svg)](https://pypi.python.org/pypi/pc-ble-driver-py)
 
 ## Introduction
-pc-ble-driver-py is a serialization library over serial port that provides Python bindings
+**Forked** pc-ble-driver-py that is a serialization library over serial port that provides Python bindings
 for the [nrf-ble-driver library](https://github.com/NordicSemiconductor/pc-ble-driver).
 
-The Python bindings require that the development kit you use is programmed with the correct connectivity firmware. [Hardware setup](https://github.com/NordicSemiconductor/pc-ble-driver/tree/master#hardware-setup)
+The Python bindings require that the development kit you use is programmed with the correct connectivity firmware. [Hardware setup](https://github.com/embedded-community/pc-ble-driver/tree/master#hardware-setup)
 
 ## License
 
 See the [license file](LICENSE) for details.
+
+## Why Fork
+
+The original project by Nordic has been deprecated and hasn't seen any new releases for a considerable period of time, despite the presence of hot fixes that have already been merged into the master branch. This fork aims to keep the project alive and ensure that these hot fixes are readily available on pre-build wheels for all OS.
 
 ## Disclaimer
 pc-ble-driver-py does not implement or enable all of the features of the underlying pc-ble-driver (C/C++) library. Features have mostly been added on a need basis. Functions or features that have been added may also be lacking sub-features. However, as the underlying language bindings have been auto-generated, it is often the case that features can be made available by adding to the conversion-layer found in ´ble_driver.py´.
@@ -19,9 +23,15 @@ If you find features missing that you would like to have in, you are welcome to 
 
 ## Installing from PyPI
 
-To install the latest published version from the Python Package Index simply type:
+**Note**: Fork is not available in pypi since it would break ABI. Instead use wheels directly from [release](https://github.com/embedded-community/pc-ble-driver-py/releases/latest) assets.
 
-    pip install pc-ble-driver-py
+e.g.
+
+    ```shell
+    pip install https://github.com/embedded-community/pc-ble-driver-py/releases/download/v0.17.1/pc_ble_driver_py_com-0.17.1-cp39-cp39-macosx_12_0_x86_64.whl
+    ```
+
+**Note**: Please ensure to choose the appropriate wheel file that aligns with your operating system and Python version.
 
 **Note**: On Windows, the runtime libraries targeted when building the library must be present when running code using the library. If you get one of the following errors:
 
