@@ -144,4 +144,3 @@ Install cmake and swig with [Homebrew](https://brew.sh/) with the `brew` command
 
     $ brew install cmake
     $ brew install swig
-
