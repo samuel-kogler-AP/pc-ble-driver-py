@@ -29,12 +29,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: pc-ble-driver-py
 
     - name: Checkout pc-ble-driver
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: NordicSemiconductor/pc-ble-driver
         ref: c0ffd419053e2405fffdb02ce7f1f9acceff4a66
@@ -49,7 +49,7 @@ jobs:
       run: brew install cmake swig asio spdlog
 
     - name: Setup python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -92,7 +92,7 @@ jobs:
         python setup.py bdist_wheel --build-type Release
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: pc_ble_driver_py-${{ matrix.os }}-${{ matrix.toxpy}}
         path: "pc-ble-driver-py/dist/*.whl"
@@ -108,7 +108,7 @@ jobs:
       contents: write
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: dist
 
@@ -122,6 +122,6 @@ jobs:
           ls -R
 
       - name: upload release assets
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: dist/*
