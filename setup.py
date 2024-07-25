@@ -42,8 +42,8 @@ import os
 from skbuild import setup
 from setuptools import find_packages
 
-if sys.version_info < (3, 8):
-    print("pc-ble-driver-py only supports Python version 3.8 and newer")
+if sys.version_info < (3, 11):
+    print("pc-ble-driver-py only supports Python version 3.11 and newer")
     sys.exit(-1)
 
 requirements = ["wrapt", "cryptography"]
@@ -95,15 +95,12 @@ setup(
         "License :: Other/Proprietary License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
     ],
     keywords="nordic nrf51 nrf52 ble bluetooth softdevice serialization bindings pc-ble-driver pc-ble-driver-py "
     "pc_ble_driver pc_ble_driver_py",
-    python_requires=">=3.8, <4",
+    python_requires=">=3.11, <4",
     install_requires=requirements,
     packages=packages,
     package_data={
